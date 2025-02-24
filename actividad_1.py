@@ -1,46 +1,32 @@
-import numpy as np  # Para manejar números y cálculos matemáticos
-import matplotlib.pyplot as plt  # Para graficar los polinomios
-import json  # Para guardar los polinomios en un archivo JSON
+import numpy as np
+import matplotlib.pyplot as plt
 
-def guardar_polinomios_json(polinomios, filename="polinomios.json"):
-    """
-    Guarda la lista de polinomios en un archivo JSON.
-    """
-    with open(filename, "w") as f:
-        json.dump({"polinomios": polinomios}, f, indent=4)
 def graficar_polinomios(*polinomios):
     """
-    Grafica un número arbitrario de polinomios de la forma f(x) = ax^n.
+    Función para graficar un número arbitrario de polinomios de la forma ax^n.
     
     Parámetros:
-    - *polinomios: Tuplas (a, n) donde 'a' es el coeficiente y 'n' el exponente.
-    
-    La función usa el operador * para recibir múltiples polinomios.
+    - polinomios: Tuplas con (a, n) donde 'a' es el coeficiente y 'n' es el exponente.
     """
-    # Guardamos los polinomios en JSON
-    guardar_polinomios_json(polinomios)
+    x = np.linspace(-10, 10, 400)  # Rango de valores de X
 
-    # Definimos el rango de valores para x
-    x = np.linspace(-10, 10, 400)  
+    plt.figure(figsize=(8, 6))  # Definir tamaño de la gráfica
 
-    # Configuramos la gráfica
-    plt.figure(figsize=(8, 6))  
+    for a, n in polinomios:
+        y = a * x**n  # Calcula el polinomio ax^n
+        plt.plot(x, y, label=f'{a}x^{n}')  # Agrega la línea al gráfico
 
-    # Recorremos cada polinomio y lo graficamos
-    for polinomio in polinomios:
-        a, n = polinomio  # Extraemos los valores de a y n
-        y = a * (x ** n)  # Calculamos la función y = ax^n
-        plt.plot(x, y, label=f'f(x) = {a}x^{n}')  # Agregamos la leyenda
-
-    # Configuración visual de la gráfica
-    plt.axhline(0, color='black', linewidth=0.5)  # Línea horizontal en y=0
-    plt.axvline(0, color='black', linewidth=0.5)  # Línea vertical en x=0
-    plt.legend()  # Mostramos la leyenda con las funciones
-    plt.grid(True)  # Activamos la cuadrícula
+    plt.axhline(0, color='black', linewidth=0.8)  # Línea horizontal en Y=0
+    plt.axvline(0, color='black', linewidth=0.8)  # Línea vertical en X=0
+    plt.grid(True, linestyle='--', alpha=0.6)  # Agregar cuadrícula
+    plt.legend()  # Mostrar leyenda
     plt.title("Gráfica de Polinomios")  # Título
-    plt.xlabel("x")  
-    plt.ylabel("f(x)")  
-    plt.show()  # Mostramos la gráfica
+    plt.xlabel("Eje X")  # Etiqueta X
+    plt.ylabel("Eje Y")  # Etiqueta Y
+
+    # <--- IMPORTANTE PARA MOSTRAR LA GRÁFICA
+    plt.savefig("grafica.png")  # Guarda la imagen
+    plt.show(block=True)  # Forzar la visualización de la gráfica
 
 # Ejemplo de uso con tres polinomios
 graficar_polinomios((1, 2), (-0.5, 3), (2, 1))
