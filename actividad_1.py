@@ -30,3 +30,18 @@ def graficar_polinomios(*polinomios):
 
 # Ejemplo de uso con tres polinomios
 graficar_polinomios((1, 2), (-0.5, 3), (2, 1))
+
+class LectorTXT:
+    def __init__(self):
+        self.ruta_static = "static/"
+
+    def leer_txt(self):
+        ruta_txt = "{}txt/instruccion_1.txt".format(self.ruta_static)
+        with open(ruta_txt, "r", encoding="utf-8") as f:
+            return f.read()
+
+# Crear instancia de la clase y leer el archivo
+lector = LectorTXT()
+contenido = lector.leer_txt()
+print("\nContenido del archivo:")
+print(contenido)
