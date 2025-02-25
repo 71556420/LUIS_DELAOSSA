@@ -64,3 +64,18 @@ with open(ruta_csv, mode="w", newline="", encoding="utf-8") as archivo:
     escritor_csv.writerows(frutas)
 
 print(f"Archivo '{ruta_csv}' guardado exitosamente en el directorio principal.")
+
+import csv
+
+def leer_csv():
+    ruta_csv = "frutas.csv"  # Archivo en el directorio principal
+    datos_frutas = []
+    
+    with open(ruta_csv, "r", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        datos_frutas = [fila for fila in reader]
+    
+    return datos_frutas
+
+# Ejemplo de uso
+print(leer_csv())
