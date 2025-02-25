@@ -87,17 +87,17 @@ import csv
 url_usuarios = "https://jsonplaceholder.typicode.com/users"
 url_tareas = "https://jsonplaceholder.typicode.com/todos"
 
-# 1️⃣ Obtener datos de usuarios y tareas
+# 1️ Obtener datos de usuarios y tareas
 usuarios = requests.get(url_usuarios).json()
 tareas = requests.get(url_tareas).json()
 
-# 2️⃣ Filtrar tareas completadas
+# 2️ Filtrar tareas completadas
 tareas_completadas = [t for t in tareas if t["completed"]]
 
-# 3️⃣ Crear diccionario con datos de usuarios
+# 3️ Crear diccionario con datos de usuarios
 usuarios_dict = {u["id"]: u["name"] for u in usuarios}
 
-# 4️⃣ Guardar en CSV
+# 4️ Guardar en CSV
 ruta_csv = "tareas_completadas.csv"
 with open(ruta_csv, "w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file)
