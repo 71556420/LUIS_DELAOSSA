@@ -45,3 +45,22 @@ lector = LectorTXT()
 contenido = lector.leer_txt()
 print("\nContenido del archivo:")
 print(contenido)
+
+import csv
+
+# Lista de frutas con sus características
+frutas = [
+    ["Manzana", "Roja", "Dulce"],
+    ["Plátano", "Amarillo", "Dulce"],
+    ["Lima", "Verde", "Ácida"]
+]
+
+# Definir la ruta donde se guardará el archivo CSV
+ruta_csv = "frutas.csv"
+
+# Escribir los datos en el archivo CSV
+with open(ruta_csv, mode="w", newline="", encoding="utf-8") as archivo:
+    escritor_csv = csv.writer(archivo)
+    escritor_csv.writerows(frutas)
+
+print(f"Archivo '{ruta_csv}' guardado exitosamente en el directorio principal.")
