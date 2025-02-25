@@ -79,3 +79,31 @@ def leer_csv():
 
 # Ejemplo de uso
 print(leer_csv())
+
+import requests
+import csv
+
+# URLs de la API JSONPlaceholder
+url_usuarios = "https://jsonplaceholder.typicode.com/users"
+url_tareas = "https://jsonplaceholder.typicode.com/todos"
+
+# 1️⃣ Obtener datos de usuarios y tareas
+usuarios = requests.get(url_usuarios).json()
+tareas = requests.get(url_tareas).json()
+
+# 2️⃣ Filtrar tareas completadas
+tareas_completadas = [t for t in tareas if t["completed"]]
+
+# 3️⃣ Crear diccionario con datos de usuarios
+usuarios_dict = {u["id"]: u["name"] for u in usuarios}
+
+# 4️⃣ Guardar en CSV
+ruta_csv = "tareas_completadas.csv"
+with open(ruta_csv, "w", newline="", encoding="utf-8") as file:
+    writer = csv.writer(file)
+    writer.writerow(["ID Usuario", "Nombre", "ID Tarea", "Título"])  # Encabezados
+    
+    for tarea in tareas_completadas:
+        writer.writerow([tarea["userId"], usuarios_dict[tarea["userId"]], tarea["id"], tarea["title"]])
+
+print(f"Pipeline completada. Archivo generado: {ruta_csv}")
